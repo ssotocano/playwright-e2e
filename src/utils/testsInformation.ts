@@ -1,7 +1,7 @@
 import { Page, test, expect } from "@playwright/test";
 import * as allure from "allure-js-commons";
 
-export class TestInfo{
+export class TestInformation{
     
     info = {
         name: allure.displayName("Test Authentication"),
