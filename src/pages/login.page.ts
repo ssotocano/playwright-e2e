@@ -1,6 +1,4 @@
 import { Page, Locator, expect } from "@playwright/test";
-import exp from "constants";
-import { resolve } from "path";
 
 export class LoginPage{
 
@@ -12,6 +10,7 @@ export class LoginPage{
     readonly forgotPassword: Locator;
     readonly rememberMe: Locator;
     readonly btnSignIn: Locator;
+    readonly alertLoginFailed: Locator;
 
     constructor(page:Page){
         this.page = page;
@@ -22,6 +21,7 @@ export class LoginPage{
         this.forgotPassword = page.locator('a', {hasText: 'Forgot password?'});
         this.rememberMe = page.getByRole('checkbox', {name: 'rememberMe'});
         this.btnSignIn = page.locator('button', {hasText: ' Sign in '});
+        this.alertLoginFailed = page.locator('text="Failed to sign in!"');
     }
 
     async sleep(ms: number){
@@ -50,6 +50,10 @@ export class LoginPage{
         await expect(this.btnSignIn).toBeEnabled();
         await this.sleep(2000);
         await this.btnSignIn.click();
+    }
+
+    async alertDanger(){
+        await expect(this.alertLoginFailed).toBeVisible();
     }
 
     
